@@ -1,0 +1,17 @@
+#wrapper {
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+}
+p {
+	border: 1px solid black;
+	display: inline-block;
+	padding: 10px 20px 20px 20px;
+}
+h1 {
+	color: purple;
+	border: 1px solid black;
+	font-size: 4em;
+	padding: 20px;
+	margin: 0;
+}
