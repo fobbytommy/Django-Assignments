@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Survey Form Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'surveyForm/css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<h3>Thanks for submitting this form! You have submitted this form {{ request.session.count }} time now.</h3>
+			<section>
+				<h2>Sumitted Information</h2>
+				<table>
+					<tbody>
+						<tr>
+							<td>Name:</td>
+							<td class='results'>{{ request.session.name }}</td>
+						</tr>
+						<tr>
+							<td>Dojo Location:</td>
+							<td class='results'>{{ request.session.location }}</td>
+						</tr>
+						<tr>
+							<td>Favorite Language:</td>
+							<td class='results'>{{ request.session.language }}</td>
+						</tr>
+						<tr>
+							<td>Comment:</td>
+							<td class='results'>{{ request.session.comment }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<a href="/">Go Back</a>
+			</section>
+		</div>
+	</body>
+</html>
