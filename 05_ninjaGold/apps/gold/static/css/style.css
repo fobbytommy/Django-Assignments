@@ -1,0 +1,50 @@
+* {
+	/*outline: 1px dotted red;*/
+}
+#wrapper {
+	margin: 0 auto;
+	width: 903px;
+	padding: 20px;
+	background-color: lightblue;
+}
+#top h4 {
+	display: inline-block;
+}
+#top form {
+	display: inline-block;
+}
+#middle section {
+	text-align: center;
+	width: 200px;
+	display: inline-block;
+	border: 1px solid black;
+	padding: 10px;
+	background-color: skyblue;
+}
+#activity {
+	border: 2px solid black;
+	height: 180px;
+	padding: 10px 20px;
+	overflow-y: scroll;
+	background-color: white;
+}
+#bottom h5 {
+	margin: 0;
+}
+#activity p {
+	margin: 0;
+}
+.red {
+	color: red;
+}
+.blue {
+	color: blue;
+}
+.green {
+	color: green;
+}
+#gold {
+	border: 1px solid black;
+	padding: 10px;
+	width: 50px;
+}
