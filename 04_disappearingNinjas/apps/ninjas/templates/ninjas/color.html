@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Disappearing Ninjas Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+		<section>
+			<h2>{{ name }}</h2>
+			<img src="{% static img_url %}" alt="{{ color }}">
+			<a href="/">Back to Root</a>
+		</section>
+	</body>
+</html>
