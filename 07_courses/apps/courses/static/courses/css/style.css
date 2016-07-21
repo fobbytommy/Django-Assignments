@@ -1,0 +1,40 @@
+#wrapper {
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
+
+}
+h5{
+	border: 1px solid black;
+	width: 300px;
+	padding: 10px;
+	margin: 0 0 10px 30px;
+}
+textarea{
+	vertical-align: top;
+}
+table {
+	border: 2px solid purple;
+	width: 100%;
+	text-align: center;
+}
+#red {
+	background-color: red;
+	padding: 5px;
+}
+#red:hover {
+	background-color: lightblue;
+}
+th {
+    border: 1px dashed skyblue;
+    border-collapse: collapse;
+	padding: 5px;
+}
+td {
+    border: 1px dotted lightblue;
+    border-collapse: collapse;
+	padding: 5px;
+}
+form {
+	display: inline-block;
+}

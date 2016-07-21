@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Delete a course</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'courses/css/style.css' %}">
+	</head>
+	<body>
+		<h1>Comment Section</h1>
+		<h3>Name: {{ course.name }}</h3>
+		<h3>Description: {{ course.description.description }}</h3>
+		{% for comment in course.comment_set.all %}
+			<h5>{{ comment.comment }}</h5>
+		{% endfor %}
+		<form action="/courses/comment/{{ course.id }}" method="POST">
+			{% csrf_token %}
+			<label for="comment">Add Comment:</label>
+			<textarea name="comment" rows="8" cols="40" id="comment"></textarea>
+			<input type="submit" value="Let's ADD COMMENT">
+		</form>
+		<form action="/" method="GET">
+			<input type="submit" value="GO BACK">
+		</form>
+	</body>
+</html>
