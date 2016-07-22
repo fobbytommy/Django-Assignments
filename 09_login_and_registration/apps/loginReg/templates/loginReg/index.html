@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login and Reg Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'loginReg/css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>Registration</h1>
+			<form action="/process/register" method="post">
+				{% csrf_token %}
+				<p>
+					<label for="first_name">First Name:</label>
+					<input type="text" name="first_name" id="first_name">
+				</p>
+				<p>
+					<label for="last_name">Last Name:</label>
+					<input type="text" name="last_name" id="last_name">
+				</p>
+				<p>
+					<label for="email_register">Email:</label>
+					<input type="email" name="email" id="email_register">
+				</p>
+				<p>
+					<label for="birthday">D.O.B:</label>
+					<input type="date" name="birthday" id="birthday">
+				</p>
+				<p>
+					<label for="password_register">Password:</label>
+					<input type="password" name="password" id="password_register">
+				</p>
+				<p>
+					<label for="confirm_pw">Confirm pw:</label>
+					<input type="password" name="confirm_pw" id="confirm_pw">
+				</p>
+				<p>
+					<input type="submit" value="Register">
+				</p>
+			</form>
+			{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    {% endfor %}
+			</ul>
+			{% endif %}
+			<h1>Login</h1>
+			<form action="/process/login" method="post">
+				{% csrf_token %}
+				<p>
+					<label for="email_login">Email:</label>
+					<input type="email" name="email" id="email_login">
+				</p>
+				<p>
+					<label for="password_login">Password:</label>
+					<input type="password" name="password" id="password_login">
+				</p>
+				<p>
+					<input type="submit" value="Login">
+				</p>
+			</form>
+		</div>
+	</body>
+</html>

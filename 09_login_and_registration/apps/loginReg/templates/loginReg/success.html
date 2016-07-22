@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login and Reg Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'loginReg/css/style.css' %}">
+	</head>
+	<body>
+		<h1>Success! Welcome, {{ request.session.name }}!</h1>
+		{% for message in messages %}
+			<h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+		{% endfor %}
+		<form action="/" method="get">
+			<input type="submit" value="Log Out">
+		</form>
+	</body>
+</html>

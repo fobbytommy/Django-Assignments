@@ -1,0 +1,12 @@
+#wrapper {
+	width: 200px;
+}
+p {
+	text-align: right;
+}
+.success {
+	color: green;
+}
+.error {
+	color: red;
+}
