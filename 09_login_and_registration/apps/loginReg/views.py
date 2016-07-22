@@ -33,8 +33,4 @@ def process(request, which_process):
 		return redirect('/')
 
 def success(request):
-	users = User.objects.all()
-	for user in users:
-		print user.first_name
-		print user.birthday
 	return render(request, 'loginReg/success.html')
