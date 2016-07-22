@@ -1,0 +1,64 @@
+* {
+	margin: 0;
+}
+#wrapper {
+	margin: 0 auto;
+	width: 740px;
+}
+#email {
+	width: 500px;
+	font-size: 1.5em;
+}
+.message {
+	width: 500px;
+	height: 50px;
+	padding-top: 30px;
+	margin: 0 auto;
+	text-align: center;
+	color: red;
+	font-family: verdana, sans-serif;
+}
+p {
+	font-family: verdana, sans-serif;
+	font-size: 1.3em;
+}
+.button {
+	padding: 5px 40px;
+	font-family: verdana, sans-serif;
+	font-size: .7em;
+	margin-left: 530px;
+	margin-top: 20px;
+}
+.message2 {
+	width: 700px;
+	height: 120px;
+	padding: 20px;
+	margin: 0 auto;
+	text-align: center;
+	color: green;
+	font-family: verdana, sans-serif;
+	border: 3px solid blue;
+}
+table {
+	width: 90%;
+	padding: 3%;
+	text-align: center;
+	border: 2px solid black;
+	margin: 0 auto;
+	border-radius: 20px;
+}
+h2 {
+	margin-top: 20px;
+	margin-left: 50px;
+}
+.delete {
+	padding: 4px 15px;
+	font-family: verdana, sans-serif;
+	font-size: .5em;
+}
+td {
+	border: 1px dotted skyblue;
+}
+th {
+	border: 1px dashed blue;
+}

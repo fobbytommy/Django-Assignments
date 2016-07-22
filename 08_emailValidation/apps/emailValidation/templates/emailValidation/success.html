@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Email Validation Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="message2">
+				{% if request.session.message %}
+				<h1>{{ request.session.message }}</h1>
+				{% endif %}
+			</div>
+			<h2>Email Addressed Entered</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Email</th>
+						<th>Added Date</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for email in emails %}
+					<tr>
+						<td>{{ email.email }}</td>
+						<td>{{ email.created_at }}</td>
+						<td>
+							<form action="/delete/{{ email.id }}" method="post">
+								{% csrf_token %}
+								<input type="submit" value="DELETE"  class="delete">
+							</form>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<form action="/success" method="POST">
+				{% csrf_token %}
+				<input type="submit" value="Go BACK!" class="button">
+			</form>
+		</div>
+	</body>
+</html>

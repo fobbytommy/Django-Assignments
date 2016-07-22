@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Email Validation Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="message">
+				{% if request.session.error %}
+				<h1>{{ request.session.error }}</h1>
+				{% endif %}
+			</div>
+			<form action="/process" method="post">
+				{% csrf_token %}
+				<p>
+					<label for="email">Email Address:</label>
+					<input type="email" name="email" id="email">
+				</p>
+				<p>
+					<input type="submit" value="Submit" class="button">
+				</p>
+			</form>
+		</div>
+	</body>
+</html>
