@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login and Reg Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'courses/css/style.css' %}">
+	</head>
+	<body>
+		<h1 class='check'>Success! Welcome, {{ request.session.name }}!</h1>
+		{% for message in messages %}
+			<h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
+		{% endfor %}
+		<h2>Add User To Course</h2>
+		<form action="" method="post">
+			{% csrf_token %}
+			<select name="user">
+				{% for user in users %}
+				<option value="{{ user.id }}">{{ user.first_name }}</option>
+				{% endfor %}
+		 	</select>
+			<select name="category">
+				{% for category in categories %}
+				<option value="{{ category.id }}">{{ category.title }}</option>
+				{% endfor %}
+		 	</select>
+			<input type="submit" value="Add User to Course">
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Course</th>
+					<th>Title</th>
+					<th>Number of Users</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for course in courses %}
+				<tr>
+					<td>{{ course.course_number }}</td>
+					<td>{{ course.title }}</td>
+					<td>{{ course.hello }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<form action="/login-register" method="get">
+			<input type="submit" value="Log Out">
+		</form>
+	</body>
+</html>

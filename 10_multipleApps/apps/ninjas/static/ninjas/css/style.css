@@ -1,0 +1,14 @@
+section {
+	display: inline-block;
+	background-color: lightblue;
+	width: 200px;
+	border: 2px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+section img {
+	width: 180px;
+	height: 260px;
+	border: 1px solid black;
+}

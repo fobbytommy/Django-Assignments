@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>Time Display Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'timedisplay/css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<p>The current time and date:</p>
+			<h1>{{ time }}</h1>
+			<h4><a href="/">Go back</a></h4>
+		</div>
+	</body>
+</html>
