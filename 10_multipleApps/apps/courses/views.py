@@ -38,23 +38,21 @@ def comment(request, id):
 def add_user(request):
 	users = User.objects.all()
 	categories = Course_category.objects.all()
-	Course_new.objects.create(user_id = 1, course_category_id = 1)
-	courses = Course_category.objects.raw('SELECT courses_course_category.course_number, courses_course_category.title FROM courses_course_category')
-	print Course_new._meta.get_all_field_names()
-	print courses
-	for course in courses:
-		print course
+	courses = Course_new.objects.raw('SELECT courses_course_new.id, courses_course_category.course_number, courses_course_category.title, COUNT(courses_course_new.user_id) AS user_counter FROM courses_course_new JOIN courses_course_category ON courses_course_new.course_category_id = courses_course_category.id GROUP BY courses_course_category.course_number')
+
 	context = {
 		'users': users,
 		'categories': categories,
-		# 'courses': courses
+		'courses': courses
 	}
 
-	# for user in users:
-	# 	print user.id
-	# 	print user.first_name
-	# categories = Course_category.objects.all()
-	# for category in categories:
-	# 	print category.course_number
-	# 	print category.title
 	return render(request, 'courses/add_user.html', context)
+
+def add_process(request):
+	if request.method == "POST":
+		user_id = int(request.POST['user'])
+		category_id = int(request.POST['category'])
+		Course_new.objects.create(user_id = user_id, course_category_id = category_id)
+	else:
+		pass
+	return redirect(reverse('course_add_user'))

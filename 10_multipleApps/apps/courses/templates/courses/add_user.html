@@ -12,7 +12,7 @@
 			<h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h3>
 		{% endfor %}
 		<h2>Add User To Course</h2>
-		<form action="" method="post">
+		<form action="{% url 'course_add_process' %}" method="post">
 			{% csrf_token %}
 			<select name="user">
 				{% for user in users %}
@@ -38,8 +38,8 @@
 				{% for course in courses %}
 				<tr>
 					<td>{{ course.course_number }}</td>
-					<td>{{ course.title }}</td>
-					<td>{{ course.hello }}</td>
+					<td>{{ course.title  }}</td>
+					<td>{{ course.user_counter }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
