@@ -1,0 +1,12 @@
+form {
+	display: inline-block;
+}
+table {
+	border: 3px solid darkblue;
+}
+th {
+	border: 1px dashed blue;
+}
+td {
+	border: 1px dotted lightblue;
+}

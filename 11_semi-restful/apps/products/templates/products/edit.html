@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Edit Product - Semi Restful Assignment</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'products/style.css' %}">
+	</head>
+	<body>
+		<h1>Edit Product {{ product.id }}</h1>
+		{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		<form action="{% url 'products_edit' id=product.id %}" method="POST">
+			{% csrf_token %}
+			<p><label for="name">Name:</label></p>
+			<p><input type="text" name="name" id="name"></p>
+			<p><label for="description">Description:</label></p>
+			<p><input type="text" name="description" id="description"></p>
+			<p><label for="price">Price:</label></p>
+			<p><input type="number" step="any" name="price" id="price"></p>
+			<p><input type="submit" value="Update"></p>
+		</form>
+		<p><a href="{% url 'products_index' %}">Back to product list</a></p>
+		<p><a href="{% url 'products_show' id=product.id %}">Back to show this product</a></p>
+		<p><a href="{% url 'products_new' %}">Add a new products</a></p>
+	</body>
+	<script type="text/javascript">
+		document.getElementById('name').value = "{{ product.name }}"
+		document.getElementById('description').value = "{{ product.description }}"
+		document.getElementById('price').value = "{{ product.price }}"
+	</script>
+</html>
