@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'books/css/style.css' %}">
+	</head>
+	<body>
+		<h1>Welcome!</h1>
+		<div id="register">
+			<h2>Register</h2>
+			<form action="{% url 'process_user' process='register' %}" method="POST">
+				{% csrf_token %}
+				<p>
+					<label for="name">Name:</label>
+					<input type="text" name="name" id="name">
+				</p>
+				<p>
+					<label for="alias">Alias:</label>
+					<input type="text" name="alias" id="alias">
+				</p>
+				<p>
+					<label for="email_register">Email:</label>
+					<input type="email" name="email" id="email_register">
+				</p>
+				<p>
+					<label for="password_register">Password:</label>
+					<input type="password" name="password" id="password_register">
+				</p>
+				<p>*Password should be at least 8 characters</p>
+				<p>
+					<label for="confirm_pw">Confirm pw:</label>
+					<input type="password" name="confirm_pw" id="confirm_pw">
+				</p>
+				<p>
+					<input type="submit" value="Register">
+				</p>
+		</form>
+		</div>
+		<div id="login">
+			<h2>Login</h2>
+			<form action="{% url 'process_user' process='login' %}" method="POST">
+				{% csrf_token %}
+				<p>
+					<label for="email_login">Email:</label>
+					<input type="email" name="email" id="email_login">
+				</p>
+				<p>
+					<label for="password_login">Password:</label>
+					<input type="password" name="password" id="password_login">
+				</p>
+				<p>
+					<input type="submit" value="Login">
+				</p>
+			</form>
+		</div>
+		<footer>
+			{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    {% endfor %}
+			</ul>
+			{% endif %}
+		</footer>
+	</body>
+</html>

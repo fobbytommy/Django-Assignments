@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Add Book Review</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'books/css/style.css' %}">
+	</head>
+	<body>
+		<header>
+			<a href="{% url 'show_books' %}">Home</a>
+			<a href="{% url 'logout' %}">Logout</a>
+		</header>
+		<h1>{{ book_data.0.title }}</h1>
+		<h2>Author: {{ book_data.0.author }}</h2>
+		<h1>Reviews:</h1>
+		<div id="reviews">
+			{% for data in book_data %}
+			<div class="review">
+				{% if data.rating == 1 %}
+					<p>Rating: <img src="{% static 'books/image/1_star.png' %}" alt="1_stars" style="width: 10%;"></p>
+				{% elif data.rating == 2 %}
+					<p>Rating: <img src="{% static 'books/image/2_star.png' %}" alt="2_stars" style="width: 10%;"></p>
+				{% elif data.rating == 3 %}
+					<p>Rating: <img src="{% static 'books/image/3_star.png' %}" alt="3_stars" style="width: 10%;"></p>
+				{% elif data.rating == 4 %}
+					<p>Rating: <img src="{% static 'books/image/4_star.png' %}" alt="4_stars" style="width: 10%;"></p>
+				{% else %}
+					<p>Rating: <img src="{% static 'books/image/5_star.png' %}" alt="5_stars" style="width: 10%;"></p>
+				{% endif %}
+				<p>{{ data.description }}</p>
+				<p><a href="/users/{{ data.user_id }}">{{ data.alias }}</a></p>
+				<p>Posted on {{ data.created_at }}</p>
+				{% if request.session.user_id == data.user_id %}
+					<form action="{% url 'delete_review' book_id=data.id review_id=data.review_id %}" method="post">
+						{% csrf_token %}
+						<input type="submit" value="Delete this reivew">
+					</form>
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+		<div class="add_review">
+			<h3>Add a Review:</h3>
+			<form action="{% url 'add_review' book_id=book_data.0.id user_id=request.session.user_id %}" method="post">
+				{% csrf_token %}
+				<textarea name="description" rows="8" cols="40"></textarea>
+				<h4>
+					<label for="rating">Rating:</label>
+					<select id="rating" name="rating">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+					</select> stars.
+				</h4>
+				<button>Submit Review</button>
+			</form>
+		</div>
+		<footer>
+			{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</footer>
+	</body>
+</html>

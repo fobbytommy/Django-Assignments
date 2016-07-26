@@ -1,0 +1,53 @@
+h1 {
+	color: purple;
+}
+header h1{
+	display: inline-block;
+}
+#register, #login {
+	display: inline-block;
+	border: 3px solid black;
+	padding: 15px;
+	vertical-align: top;
+}
+#description {
+	vertical-align: top;
+}
+#reviews {
+	display: inline-block;
+	width: 600px;
+ }
+.review p {
+	word-break: break-all
+}
+.error{
+	color: red;
+}
+.success{
+	color: green;
+}
+.add_review{
+	display: inline-block;
+	width: 400px;
+	vertical-align: top;
+}
+.review {
+	border-top: 3px solid black;
+	padding: 20px;
+}
+.list_of_books{
+	display: inline-block;
+	width: 300px;
+	vertical-align: top;
+	height: 200px;
+	padding: 10px;
+	overflow-y: scroll;
+	border: 1px solid black;
+}
+.list_of_books p {
+	margin: 0px 0px 3px 0px;
+}
+.book_review {
+	display: inline-block;
+	vertical-align: top;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Books | Home</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'books/css/style.css' %}">
+	</head>
+	<body>
+		<header>
+			<h1>Welcome, {{ request.session.alias }}!</h1>
+			<a href="{% url 'add_books' %}">Add Books and Review</a>
+			<a href="{% url 'logout' %}">Logout</a>
+		</header>
+		<div id="reviews">
+			{% for data in recent_review %}
+				<div class="review">
+					<h3><a href="{% url 'show_review' book_id=data.id %}">{{ data.title }}</a></h3>
+					{% if data.rating == 1 %}
+						<p>Rating: <img src="{% static 'books/image/1_star.png' %}" alt="1_stars" style="width: 10%;"></p>
+					{% elif data.rating == 2 %}
+						<p>Rating: <img src="{% static 'books/image/2_star.png' %}" alt="2_stars" style="width: 10%;"></p>
+					{% elif data.rating == 3 %}
+						<p>Rating: <img src="{% static 'books/image/3_star.png' %}" alt="3_stars" style="width: 10%;"></p>
+					{% elif data.rating == 4 %}
+						<p>Rating: <img src="{% static 'books/image/4_star.png' %}" alt="4_stars" style="width: 10%;"></p>
+					{% else %}
+						<p>Rating: <img src="{% static 'books/image/5_star.png' %}" alt="5_stars" style="width: 10%;"></p>
+					{% endif %}
+					<p><a href="/users/{{ data.user_id }}">{{ data.alias }}</a> <i>says</i> {{ data.description }}</p>
+					<p>Posted on {{ data.created_at }}</p>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="book_review">
+			<h2>Other Books with Reviews:</h2>
+			<div class="list_of_books">
+				{% for book in books %}
+				<p><a href="{% url 'show_review' book_id=book.id %}">{{ book.title }}</a></p>
+				{% endfor %}
+			</div>
+		</div>
+		<footer>
+			{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</footer>
+	</body>
+</html>
