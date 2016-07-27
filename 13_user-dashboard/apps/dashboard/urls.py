@@ -12,5 +12,7 @@ urlpatterns = [
 	url(r'^users/edit$', views.profile_edit, name="profile_edit"),
 	url(r'^users/edit/(?P<user_id>\d+)$', views.edit_user_by_admin, name="edit_user_by_admin"),
 	url(r'^users/show/(?P<user_id>\d+)$', views.user_wall, name="user_wall"),
-	url(r'^add/message/(?P<to_who>\d+)$', views.add_message, name="add_message")
+	url(r'^add/message/(?P<to_who>\d+)$', views.add_message, name="add_message"),
+	url(r'^add/post/(?P<message_id>\d+)/(?P<user_id>\d+)$', views.add_post, name="add_post")
+
 ]

@@ -221,8 +221,31 @@ class messageManager(models.Manager):
 			return (True, "Successfully added a new message!")
 	def retrieve_message(self, user_id):
 		data_1 = User.objects.get(id=user_id)
-		data_2 = User.objects.raw("SELECT dashboard_user.id, dashboard_user.first_name, dashboard_user.last_name, dashboard_message.created_at, dashboard_message.message FROM dashboard_user JOIN dashboard_message ON dashboard_user.id = dashboard_message.user_id WHERE dashboard_message.to_who = {}".format(user_id))
+		data_2 = User.objects.raw("SELECT dashboard_user.id, dashboard_user.first_name, dashboard_user.last_name, dashboard_message.created_at, dashboard_message.message, dashboard_message.id AS 'message_id' FROM dashboard_user JOIN dashboard_message ON dashboard_user.id = dashboard_message.user_id WHERE dashboard_message.to_who = {} ORDER BY dashboard_message.created_at DESC".format(user_id))
+		# Message.objects.get(to_who=user_id)
 		return (data_1, data_2)
+
+class postManager(models.Manager):
+	def add_post(self, post, message_id, user_id):
+		errors = []
+		if len(str(post)) < 10:
+			errors.append("Please put more than 10 characters!")
+		elif  len(str(post)) > 500:
+			errors.append("Please put less than 500 characters!")
+
+		if errors:
+			return (False, errors)
+		else:
+			Post.objects.create(post = post, message_id = message_id, user_id = user_id)
+			return (True, "Successfully added a new post!")
+	def retrieve_post(self, user_id):
+		messages = Message.objects.raw("SELECT dashboard_message.id FROM dashboard_message WHERE to_who = {}".format(user_id))
+		message_ids = ""
+		for message in messages:
+			message_ids += str(message.id) + ", "
+		message_ids = message_ids[:-2]
+		posts = Post.objects.raw("SELECT dashboard_post.id, dashboard_user.first_name, dashboard_user.last_name, dashboard_post.post, dashboard_post.created_at, dashboard_post.user_id, dashboard_post.message_id FROM dashboard_post JOIN dashboard_user ON dashboard_post.user_id = dashboard_user.id WHERE dashboard_post.message_id IN ({})".format(message_ids))
+		return posts
 class User(models.Model):
 	first_name = models.CharField(max_length=100)
  	last_name = models.CharField(max_length=100)
@@ -254,3 +277,7 @@ class Post(models.Model):
 	message = models.ForeignKey(Message)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+	postManager = postManager()
+	# Re-adds objects as a manager (so all the normal ORM literature matches)
+	objects = models.Manager()
+	# *************************

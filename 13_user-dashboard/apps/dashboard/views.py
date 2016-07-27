@@ -154,13 +154,12 @@ def edit_user_by_admin(request, user_id):
 def user_wall(request, user_id):
 	if 'status' in request.session:
 		data = Message.messageManager.retrieve_message(user_id)
+		posts = Post.postManager.retrieve_post(user_id)
 		context = {
 			'user': data[0],
-			'messages': data[1]
+			'message_list': data[1],
+			'posts': posts
 		}
-		for idx in data[1]:
-			print idx.message
-			print idx.first_name
 		return render(request, 'dashboard/user_wall.html', context)
 	else:
 		messages.error(request, 'You must be logged in to go to that route!')
@@ -178,6 +177,38 @@ def add_message(request, to_who):
 		else:
 			# do nothing
 			return redirect('/users/show/{}'.format(to_who))
+	else:
+		messages.error(request, 'You must be logged in to go to that route!')
+		return redirect('/')
+
+def add_message(request, to_who):
+	if 'status' in request.session:
+		if request.method == "POST":
+			val_result = Message.messageManager.add_message(request.POST['message'], to_who, request.session['user_id'])
+			if val_result[0] == False:
+				messages.error(request, val_result[1])
+			else:
+				messages.success(request, val_result[1])
+			return redirect('/users/show/{}'.format(to_who))
+		else:
+			# do nothing
+			return redirect('/users/show/{}'.format(to_who))
+	else:
+		messages.error(request, 'You must be logged in to go to that route!')
+		return redirect('/')
+
+def add_post(request, message_id, user_id):
+	if 'status' in request.session:
+		if request.method == "POST":
+			val_result = Post.postManager.add_post(request.POST['post'], message_id, request.session['user_id'])
+			if val_result[0] == False:
+				messages.error(request, val_result[1])
+			else:
+				messages.success(request, val_result[1])
+			return redirect('/users/show/{}'.format(user_id))
+		else:
+			# do nothing
+			return redirect('/users/show/{}'.format(user_id))
 	else:
 		messages.error(request, 'You must be logged in to go to that route!')
 		return redirect('/')

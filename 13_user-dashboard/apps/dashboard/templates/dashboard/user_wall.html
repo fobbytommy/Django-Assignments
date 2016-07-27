@@ -29,7 +29,27 @@
 				</p>
 				<p><input type="submit" value="Add Message"></p>
 			</form>
-
+			{% for data in message_list %}
+				<section>
+					<h3><a href="/users/show/{{ data.id }}">{{ data.first_name }} {{ data.last_name }}</a></h3>
+					<p>{{ data.created_at }}</p>
+					<h4>{{ data.message }}<h4>
+						{% for post in posts %}
+							{% if data.message_id == post.message_id%}
+								<h5><a href="/users/show/{{ post.user_id }}">{{ post.first_name }} {{ post.last_name }}</a>'s post</h5>
+								<p>{{ post.created_at }}</p>
+								<p>{{ post.post }}</p>
+							{% endif %}
+						{% endfor %}
+						<form action="/add/post/{{ data.message_id }}/{{ user.id }}" method="post">
+							{% csrf_token %}
+							<p>
+								<textarea name="post" rows="8" cols="100" placeholder="Add post to this message!"></textarea>
+							</p>
+							<p><input type="submit" value="Add Post"></p>
+						</form>
+				</section>
+			{% endfor %}
 		</div>
 		{% if messages %}
 		<footer id="footer">
