@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Manage Users | User Information</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<p>
+				<a href="{% url 'logout' %}">Logout</a>
+			</p>
+			<p>
+				<a href="{% url 'profile_edit' %}">My Profile</a>
+			</p>
+			<p>
+				<a href="{% url 'success' %}">Home</a>
+			</p>
+			<h1>{{ user.first_name }} {{ user.last_name }}</h1>
+			<h3>Registered at: {{ user.created_at }}</h3>
+			<h3>User ID: {{ user.id }}</h3>
+			<h3>Email address: {{ user.email }}</h3>
+			<h3>Description: {{user.description }}</h3>
+			<form action="/add/message/{{ user.id }}" method="post">
+				{% csrf_token %}
+				<p>
+					<textarea name="message" rows="8" cols="100" placeholder="Add message to {{ user.first_name }}!"></textarea>
+				</p>
+				<p><input type="submit" value="Add Message"></p>
+			</form>
+
+		</div>
+		{% if messages %}
+		<footer id="footer">
+			<ul class="messages">
+				{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		</footer>
+		{% endif %}
+	</body>
+</html>

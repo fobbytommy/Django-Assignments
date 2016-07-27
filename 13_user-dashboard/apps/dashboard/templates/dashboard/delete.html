@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Manage Users | Delete</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>Delete user #{{ user.id }}</h1>
+			<h3>{{ user.first_name }} {{ user.last_name}}</h3>
+			<h3>{{ user.email }}</h3>
+			<form action="/users/delete/{{ user.id }}" method="post">
+				{% csrf_token %}
+				<button>Delete for sure!</button>
+			</form>
+			<p>
+				<a href="{% url 'success' %}">Home</a>
+			</p>
+			<p>
+				<a href="{% url 'manage_users' user_level='admin' %}">Return to dashboard</a>
+			</p>
+			<p>
+				<a href="{% url 'logout' %}">Logout</a>
+			</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Manage Users | Dashboard</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
+	</head>
+	<body>
+		<div id="wrapper">
+			<p>
+				<a href="{% url 'logout' %}">Logout</a>
+			</p>
+			<p>
+				<a href="{% url 'profile_edit' %}">My Profile</a>
+			</p>
+			<p>
+				<a href="{% url 'success' %}">Home</a>
+			</p>
+			{% if user_level == 'admin' %}
+				<h2>Manage Users</h2>
+				<form action="/users/new" method="GET">
+					<button>Add new</button>
+				</form>
+				<table>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Created At</th>
+							<th>User Level</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{ user.id }}</td>
+							<td><a href="/users/show/{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
+							<td>{{ user.email }}</td>
+							<td>{{ user.created_at }}</td>
+							{% if user.user_level == 9 %}
+							<td>admin</td>
+							{% else %}
+							<td>normal</td>
+							{% endif %}
+							<td>
+								<form action="/users/edit/{{ user.id }}" method="GET">
+									<button>edit</button>
+								</form>
+								<form action="/users/delete/{{ user.id }}" method="GET">
+									<button>delete</button>
+								</form>
+
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% else %}
+				<h2>All Users</h2>
+				<table>
+					<tbody>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Created At</th>
+							<th>User Level</th>
+						</tr>
+					</tbody>
+					<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{ user.id }}</td>
+							<td><a href="/users/show/{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
+							<td>{{ user.email }}</td>
+							<td>{{ user.created_at }}</td>
+							{% if user.user_level == 9 %}
+							<td>admin</td>
+							{% else %}
+							<td>normal</td>
+							{% endif %}
+						</tr>
+					{% endfor %}
+					</tbody>
+			{% endif %}
+		</div>
+		{% if messages %}
+		<footer id="footer">
+			<ul class="messages">
+				{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		</footer>
+		{% endif %}
+	</body>
+</html>
