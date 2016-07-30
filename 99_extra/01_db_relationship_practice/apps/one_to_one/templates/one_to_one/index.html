@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>One to One Relationship</title>
+		<style tyle="text/css">
+			* {
+				margin: 0;
+			}
+			.blogs {
+				display: inline-block;
+				border: 2px solid black;
+				width: 600px;
+				height: 400px;
+				overflow-y: scroll;
+				padding: 20px;
+			}
+
+			section {
+				border: 1px solid skyblue;
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>One to One Relationship</h1>
+			<div class="add_blog">
+				<h3>Add Blog</h3>
+				<form action="{% url 'process_one_to_one' %}" method="post">
+					{% csrf_token %}
+					<p>
+						<label for="title">Title:</label>
+						<input type="text" name="title" id="title">
+					</p>
+					<p>
+						<label for="description">Description:</label>
+					</p>
+					<p>
+						<textarea id="description" name="description" rows="8" cols="40"></textarea>
+					</p>
+					<button type="submit">Add Blog</button>
+				</form>
+			</div>
+			<div class="blogs">
+				{% for blog in blogs %}
+				<section>
+					<h3>{{ blog.id }}</h3>
+					<h3>{{ blog.title }}</h3>
+					<h4>{{ blog.description.description }}</h4>
+					<h4>{{ blog.created_at }}</h4>
+				</section>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>
